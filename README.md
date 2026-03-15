@@ -7,16 +7,15 @@ REST API для создания заказов с применением про
 - Python 3.12, Django 5, Django REST Framework
 - PostgreSQL (prod) / SQLite (dev)
 - pytest, factory_boy, ruff, mypy
-- Docker, docker-compose
+- Poetry, Docker, docker-compose
 
 ## Quick Start — локально
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements/dev.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+poetry install
+poetry run python manage.py migrate
+poetry run python manage.py createsuperuser
+poetry run python manage.py runserver
 ```
 
 Промокоды создаются через Django Admin: http://localhost:8000/admin/
@@ -26,7 +25,7 @@ python manage.py runserver
 ```bash
 cp .env.example .env
 docker-compose up --build
-docker-compose exec web python manage.py createsuperuser
+docker-compose exec web poetry run python manage.py createsuperuser
 ```
 
 ## API
@@ -87,13 +86,13 @@ curl -X POST http://localhost:8000/api/v1/orders/ \
 ## Тесты
 
 ```bash
-pytest
+poetry run pytest
 ```
 
 ## Линтинг
 
 ```bash
-ruff check . && ruff format --check . && mypy .
+poetry run ruff check . && poetry run ruff format --check . && poetry run mypy .
 ```
 
 ## Структура проекта
@@ -106,7 +105,7 @@ ruff check . && ruff format --check . && mypy .
 │   ├── orders/      # Order model, CreateOrderService, API endpoint
 │   └── promocodes/  # PromoCode, PromoCodeUsage models, Admin
 ├── tests/           # conftest.py, factories.py
-├── requirements/    # base.txt, dev.txt
+├── pyproject.toml   # Poetry + ruff + mypy + pytest config
 ├── Dockerfile
 └── docker-compose.yml
 ```
