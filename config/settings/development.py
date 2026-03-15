@@ -1,3 +1,5 @@
+"""Development settings: DEBUG=True, SQLite."""
+
 from config.settings.base import *  # noqa: F401, F403
 
 SECRET_KEY = "django-insecure-dev-key-change-in-production"

@@ -1,3 +1,5 @@
+"""Root-level pytest fixtures shared across all test modules."""
+
 import pytest
 from rest_framework.test import APIClient
 

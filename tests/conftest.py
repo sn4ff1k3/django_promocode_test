@@ -1,3 +1,5 @@
+"""Shared pytest fixtures for test modules."""
+
 import pytest
 from rest_framework.test import APIClient
 

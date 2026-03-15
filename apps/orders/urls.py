@@ -1,3 +1,5 @@
+"""URL routing for the orders app."""
+
 from django.urls import path
 
 from apps.orders.views import CreateOrderView

@@ -1,3 +1,5 @@
+"""Production settings: DEBUG=False, PostgreSQL via DATABASE_URL."""
+
 import os
 
 import dj_database_url

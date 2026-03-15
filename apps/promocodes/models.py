@@ -1,3 +1,5 @@
+"""PromoCode and PromoCodeUsage ORM models."""
+
 from decimal import Decimal
 
 from django.conf import settings
@@ -8,6 +10,8 @@ from apps.common.models import TimeStampedModel
 
 
 class PromoCode(TimeStampedModel):
+    """Discount promo code with usage limits and validity period."""
+
     code = models.CharField(max_length=50, unique=True, db_index=True)
     discount_percent = models.DecimalField(
         max_digits=5,
@@ -30,6 +34,7 @@ class PromoCode(TimeStampedModel):
         ]
 
     def save(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def]
+        """Normalize code to uppercase before saving."""
         self.code = self.code.upper()
         super().save(*args, **kwargs)
 
@@ -38,6 +43,8 @@ class PromoCode(TimeStampedModel):
 
 
 class PromoCodeUsage(models.Model):
+    """Records which user used which promo code in which order."""
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

@@ -1,1 +1,1 @@
-# Using built-in django.contrib.auth.models.User.
+"""User models — uses built-in django.contrib.auth.models.User without customization."""

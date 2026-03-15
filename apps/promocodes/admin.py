@@ -1,3 +1,5 @@
+"""Django Admin configuration for the PromoCode model."""
+
 from django.contrib import admin
 
 from apps.promocodes.models import PromoCode
@@ -5,6 +7,8 @@ from apps.promocodes.models import PromoCode
 
 @admin.register(PromoCode)
 class PromoCodeAdmin(admin.ModelAdmin):
+    """Admin view for promo codes with filtering and search."""
+
     list_display = (
         "code",
         "discount_percent",

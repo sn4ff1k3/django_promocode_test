@@ -1,3 +1,5 @@
+"""API view for order creation endpoint."""
+
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -9,7 +11,10 @@ from apps.orders.services import CreateOrderService
 
 
 class CreateOrderView(APIView):
+    """Handle POST /api/v1/orders/ to create an order."""
+
     def post(self, request: Request) -> Response:
+        """Validate input, delegate to service, return order or error."""
         serializer = CreateOrderSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         try:

@@ -1,3 +1,5 @@
+"""Business logic for order creation with promo code validation."""
+
 from decimal import ROUND_HALF_UP, Decimal
 
 from django.contrib.auth import get_user_model
@@ -20,8 +22,11 @@ User = get_user_model()
 
 
 class CreateOrderService:
+    """Service for creating orders with optional promo code application."""
+
     @staticmethod
     def execute(user_id: int, amount: Decimal, promo_code: str | None = None) -> Order:
+        """Create an order, applying promo code discount if provided."""
         user = User.objects.filter(pk=user_id).first()
         if user is None:
             raise Http404()

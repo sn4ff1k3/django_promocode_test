@@ -1,3 +1,5 @@
+"""DRF serializers for order creation request and response."""
+
 from decimal import Decimal
 
 from rest_framework import serializers
@@ -6,17 +8,22 @@ from apps.orders.models import Order
 
 
 class CreateOrderSerializer(serializers.Serializer):
+    """Validates order creation input: user_id, amount, optional promo_code."""
+
     user_id = serializers.IntegerField()
     amount = serializers.DecimalField(max_digits=10, decimal_places=2, min_value=Decimal("0.01"))
     promo_code = serializers.CharField(max_length=50, required=False, allow_null=True, allow_blank=True, default=None)
 
     def validate_promo_code(self, value: str | None) -> str | None:
+        """Normalize empty and whitespace-only strings to None."""
         if value is not None and not value.strip():
             return None
         return value
 
 
 class OrderResponseSerializer(serializers.ModelSerializer):
+    """Formats Order instance for API response."""
+
     user_id = serializers.IntegerField()
     promo_code = serializers.SerializerMethodField()
 
@@ -25,6 +32,7 @@ class OrderResponseSerializer(serializers.ModelSerializer):
         fields = ["id", "user_id", "original_amount", "discount_amount", "final_amount", "promo_code", "created_at"]
 
     def get_promo_code(self, obj: Order) -> str | None:
+        """Return promo code string or None."""
         if obj.promo_code:
             return obj.promo_code.code
         return None

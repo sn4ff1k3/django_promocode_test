@@ -1,3 +1,5 @@
+"""Factory Boy factories for creating test data."""
+
 from datetime import timedelta
 from decimal import Decimal
 
@@ -12,6 +14,8 @@ User = get_user_model()
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """Creates a User instance with sequential username."""
+
     class Meta:
         model = User
 
@@ -20,6 +24,8 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class PromoCodeFactory(factory.django.DjangoModelFactory):
+    """Creates a valid PromoCode with sensible defaults."""
+
     class Meta:
         model = PromoCode
 
@@ -33,6 +39,8 @@ class PromoCodeFactory(factory.django.DjangoModelFactory):
 
 
 class OrderFactory(factory.django.DjangoModelFactory):
+    """Creates an Order without promo code discount."""
+
     class Meta:
         model = Order
 
@@ -43,6 +51,8 @@ class OrderFactory(factory.django.DjangoModelFactory):
 
 
 class PromoCodeUsageFactory(factory.django.DjangoModelFactory):
+    """Creates a PromoCodeUsage linking user, promo code, and order."""
+
     class Meta:
         model = PromoCodeUsage
 

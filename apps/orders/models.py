@@ -1,3 +1,5 @@
+"""Order model representing a user purchase with optional promo code discount."""
+
 from decimal import Decimal
 
 from django.conf import settings
@@ -6,6 +8,8 @@ from django.db import models
 
 
 class Order(models.Model):
+    """A user order with original, discount, and final amounts."""
+
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
